@@ -1,10 +1,12 @@
 from datetime import datetime, timedelta
 from struct import unpack, calcsize
 
-from pytzpure.pytz.tzinfo import StaticTzInfo, DstTzInfo, memorized_ttinfo
-from pytzpure.pytz.tzinfo import memorized_datetime, memorized_timedelta
+from pytzpure.tzinfo import StaticTzInfo, DstTzInfo, memorized_ttinfo
+from pytzpure.tzinfo import memorized_datetime, memorized_timedelta
 
 from pytzpure.tz_descriptor import TzDescriptor
+from pytzpure.loader import load_module
+
 
 def _byte_string(s):
     """Cast a string or byte string to an ASCII byte string."""
@@ -134,7 +136,7 @@ def build_tzinfo(zone):#, fp):
     # Restore a pytz-object from Python-stored data. We load the values that
     # either a DstTzInfo- (above) -or- StaticTzInfo-type (farther above) 
     # parent-class would require.
-    tzd = TzDescriptor.load_from_file(zone)
+    tzd = load_module(zone)
 
     if tzd.tzd.parent_class_name == '':
         parent_class = tzd.parent_class_name()

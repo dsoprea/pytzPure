@@ -7,8 +7,8 @@ try:
 except NameError:
     from sets import Set as set
 
-from pytzpure import pytz
-from pytzpure.pytz.exceptions import AmbiguousTimeError, NonExistentTimeError
+import pytzpure
+from pytzpure.exceptions import AmbiguousTimeError, NonExistentTimeError
 
 __all__ = []
 
@@ -143,7 +143,7 @@ class StaticTzInfo(BaseTzInfo):
     def __reduce__(self):
         # Special pickle to zone remains a singleton and to cope with
         # database changes. 
-        return pytz._p, (self.zone,)
+        return pytzpure._p, (self.zone,)
 
 
 class DstTzInfo(BaseTzInfo):
@@ -502,7 +502,7 @@ class DstTzInfo(BaseTzInfo):
     def __reduce__(self):
         # Special pickle to zone remains a singleton and to cope with
         # database changes.
-        return pytz._p, (
+        return pytzpure._p, (
                 self.zone,
                 _to_seconds(self._utcoffset),
                 _to_seconds(self._dst),
@@ -521,7 +521,7 @@ def unpickler(zone, utcoffset=None, dstoffset=None, tzname=None):
     """
     # Raises a KeyError if zone no longer exists, which should never happen
     # and would be a bug.
-    tz = pytz.timezone(zone)
+    tz = pytzpure.timezone(zone)
 
     # A StaticTzInfo - just return it
     if utcoffset is None:
