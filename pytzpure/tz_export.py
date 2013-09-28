@@ -53,10 +53,9 @@ def _get_path_info_from_name(zone_name):
 
     return (zone_path, filename)
 
-def build_tree(root_path):
-    _touch(path.join(root_path, '__init__.py'))
-
+def write_zone_tree(root_path):
     seen_paths = set()
+    i = 0
     for tz_info in TzTranslate():
         (zone_path, filename) = _get_path_info_from_name(tz_info.zone_name)
         full_path = path.join(root_path, zone_path)
@@ -76,6 +75,10 @@ def build_tree(root_path):
         with open(file_path, 'w') as f:
             f.write(code)
 
+        i += 1
+
+    print("(%d) timezones written." % (i))
+
 def _write_single_value_as_python(root_path, module_name, container):
     data_encoded = container.as_python
 
@@ -91,17 +94,23 @@ def write_country_names(root_path, module_name=DEFAULT_ISO3166_MODULE_NAME):
     i3d = Iso3166Data.create_from_original(country_names)
     _write_single_value_as_python(root_path, module_name, i3d)
 
-root_path = '/tmp/tzppdata'
+def export(root_path):
+    print("Verifying export path exists: %s" % (root_path))
 
-try:
-    mkdir(root_path)
-except OSError:
-    pass
+    try:
+        mkdir(root_path)
+    except OSError:
+        pass
 
-build_tree(root_path)
+    print("Verifying __init__.py .")
+    _touch(path.join(root_path, '__init__.py'))
 
-#print(TzDescriptor.load_from_file('America/Detroit', module_prefix='tz'))
+    print("Writing zone tree.")
+    write_zone_tree(root_path)
 
-write_country_timezones(root_path)
-write_country_names(root_path)
+    print("Writing country timezones.")
+    write_country_timezones(root_path)
+
+    print("Writing country names.")
+    write_country_names(root_path)
 
