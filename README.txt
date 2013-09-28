@@ -7,6 +7,8 @@ for Python.
 My particular use-case was that I needed timezone support in an AppEngine 
 environment, where there's no support for data files.
 
+It's not Python3 compatible yet. I'm working on it.
+
 
 Requirements
 ------------
