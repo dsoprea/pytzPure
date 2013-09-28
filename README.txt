@@ -20,8 +20,8 @@ Install
 Build the required data files (requires "pytz"). This converts the system's 
 zoneinfo data to Python modules.
 
-    $ PYTHONPATH=. python pytzpure/tools/tz_export.py /tmp/pytzpp
-    Verifying export path exists: /tmp/pytzpp
+    $ PYTHONPATH=. python pytzpure/tools/tz_export.py /tmp/tzppdata
+    Verifying export path exists: /tmp/tzppdata
     Verifying __init__.py .
     Writing zone tree.
     (578) timezones written.
@@ -30,14 +30,14 @@ zoneinfo data to Python modules.
 
 Though I wrote everything with a sense of flexibility in how things are found, 
 it's still going to be a headache to rewire. It's recommended that the files 
-are always built under a directory named "pytzpp".
+are always built under a directory named "tzppdata".
 
 
 Usage
 -----
 
 The usage pattern is identical to "pytz". However, make sure that the root 
-directory of the "pytzpp" directory (/tmp, above) is in the PYTHONPATH.
+directory of the "tzppdata" directory (/tmp, above) is in the PYTHONPATH.
 
 Use timezones with "datetime":
 

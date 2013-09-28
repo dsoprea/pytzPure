@@ -91,9 +91,13 @@ class TzDescriptor(object):
         try:
             return self.__uttl
         except AttributeError:
-            translate = lambda dt_tuple: datetime.utcfromtimestamp(mktime(dt_tuple))
 
-            self.__uttl = [translate(dt_tuple) \
+#            translate = lambda dt_tuple: datetime.utcfromtimestamp(mktime(dt_tuple))
+            def translate(dt_tuple): 
+                print(dt_tuple)
+                return datetime.utcfromtimestamp(mktime(dt_tuple))
+
+            self.__uttl = [translate(tuple(dt_tuple)) \
                            for dt_tuple \
                            in self.__utc_transition_times_list]
     

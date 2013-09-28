@@ -29,7 +29,7 @@ class TzTranslate(object):
         return self
 
     def __next__(self):
-        next_tz_name = self.__all_timezones.next()
+        next_tz_name = next(self.__all_timezones)
 
         tz_info = timezone(next_tz_name)
         return TzDescriptor.create_from_pytz(tz_info)
@@ -37,7 +37,7 @@ class TzTranslate(object):
     next = __next__
 
 def _touch(file_path):
-    with file(file_path, 'w') as f:
+    with open(file_path, 'w') as f:
         pass
 
 def _get_path_info_from_name(zone_name):
