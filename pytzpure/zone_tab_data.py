@@ -11,7 +11,7 @@ class ZoneTabLazy(LazyDict):
         return self[iso3166_code]
 
     def _fill(self):
-        self.data = ZoneTabData.load_from_file.data
+        self.data = ZoneTabData.load_from_file().data
 
 
 class ZoneTabData(object):

@@ -7,7 +7,7 @@ from pytzpure.lazy import LazyDict
 
 class Iso3166Lazy(LazyDict):
     def _fill(self):
-        self.data = Iso3166Data.load_from_file.data
+        self.data = Iso3166Data.load_from_file().data
 
 
 class Iso3166Data(object):

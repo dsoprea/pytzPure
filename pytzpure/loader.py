@@ -3,16 +3,19 @@ from os import environ
 
 from pytzpure.config import DEFAULT_TZ_MODULE_PREFIX
 
-def _get_fq_module_name(zone_name, module_prefix=DEFAULT_TZ_MODULE_PREFIX):
-    zone_module_name = zone_name.replace('/', '.')
-    fq_module_name = ('%s.%s' % (module_prefix, zone_module_name)) \
+def _get_fq_module_name(module_name, module_prefix=DEFAULT_TZ_MODULE_PREFIX):
+
+    # This only applies when we receive a zone-name.
+    module_name = module_name.replace('/', '.')
+
+    fq_module_name = ('%s.%s' % (module_prefix, module_name)) \
                      if module_prefix is not None \
                      else zone_module_name
 
     return fq_module_name
 
-def is_loadable(zone_name, module_prefix=DEFAULT_TZ_MODULE_PREFIX):
-    fq_module = _get_fq_module_name(zone_name, module_prefix)
+def is_loadable(module_name, module_prefix=DEFAULT_TZ_MODULE_PREFIX):
+    fq_module = _get_fq_module_name(module_name, module_prefix)
 
     try:
         __import__(fq_module)
@@ -21,8 +24,8 @@ def is_loadable(zone_name, module_prefix=DEFAULT_TZ_MODULE_PREFIX):
     else:
         return True
 
-def load_module(zone_name, module_prefix=DEFAULT_TZ_MODULE_PREFIX):
-    fq_module_name = _get_fq_module_name(zone_name, module_prefix)
+def load_module(module_name, module_prefix=DEFAULT_TZ_MODULE_PREFIX):
+    fq_module_name = _get_fq_module_name(module_name, module_prefix)
 
     period_at = fq_module_name.rfind('.')
     if period_at == -1:
