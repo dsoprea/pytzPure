@@ -136,13 +136,12 @@ def build_tzinfo(zone):#, fp):
     # Restore a pytz-object from Python-stored data. We load the values that
     # either a DstTzInfo- (above) -or- StaticTzInfo-type (farther above) 
     # parent-class would require.
-    tzd = load_module(zone)
+    tzd = TzDescriptor.load_from_file(zone)
 
-    if tzd.tzd.parent_class_name == '':
-        parent_class = tzd.parent_class_name()
+    if tzd.parent_class_name == 'StaticTzInfo':
         cls = type(tzd.zone_name, (StaticTzInfo,), dict(
                 zone=tzd.zone_name,
-                _utcoffset=tzd.utcoffset,
+                _utcoffset=tzd.utcoffset_formal,
                 _tzname=tzd.tzname))
     else:
         cls = type(tzd.zone_name, (DstTzInfo,), dict(

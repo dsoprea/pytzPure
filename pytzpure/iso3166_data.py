@@ -2,6 +2,7 @@ from pytzpure.config import DEFAULT_TZ_MODULE_PREFIX, \
                             DEFAULT_ISO3166_MODULE_NAME
 from pytzpure.get_as_python import get_as_python
 from pytzpure.loader import load_module
+from pytzpure.lazy import LazyDict
 
 
 class Iso3166Lazy(LazyDict):
@@ -10,15 +11,22 @@ class Iso3166Lazy(LazyDict):
 
 
 class Iso3166Data(object):
-    @classmethod
-    def create_from_original(cls, pytz_container):
-        self.__data = pytz_container.data
+    def __init__(self, data):
+        self.__data = data
 
     @classmethod
-    def load_from_file(cls, module_name=DEFAULT_ZONETAB_MODULE_NAME, \
+    def create_from_original(cls, pytz_container):
+
+        # Induce the container to load.
+        len(pytz_container)
+
+        return cls(pytz_container.data)
+
+    @classmethod
+    def load_from_file(cls, module_name=DEFAULT_ISO3166_MODULE_NAME, \
                        module_prefix=DEFAULT_TZ_MODULE_PREFIX):
         module = load_module(module_name, module_prefix)
-        return module.i3d
+        return cls(module.i3d)
 
     @property
     def as_python(self):

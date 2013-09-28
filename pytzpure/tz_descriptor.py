@@ -2,6 +2,10 @@ from inspect import getmro
 from datetime import datetime, timedelta
 from time import mktime
 
+from pytzpure.config import DEFAULT_TZ_MODULE_PREFIX
+from pytzpure.get_as_python import get_as_python
+from pytzpure.loader import load_module
+
 
 class TzDescriptor(object):
     def __init__(self, zone_name, parent_class_name, 
@@ -17,6 +21,15 @@ class TzDescriptor(object):
 
     def __str__(self):
         return ('<%s>' % (self.__zone_name))
+
+    @classmethod
+    def load_from_file(cls, zone_name, module_prefix=DEFAULT_TZ_MODULE_PREFIX):
+        module = load_module(zone_name, module_prefix)
+
+        return cls(zone_name, module.parent_class_name, 
+                   module.utc_transition_times_list, 
+                   module.transition_info_list, module.utcoffset, 
+                   module.tzname)
 
     @classmethod
     def create_from_pytz(cls, tz_info):
@@ -48,7 +61,13 @@ class TzDescriptor(object):
                                if transition_info_list_raw is not None \
                                else None
 
-        utcoffset = getattr(tz_info, '_utcoffset', None)
+        try:
+            utcoffset_dt = tz_info._utcoffset
+        except AttributeError:
+            utcoffset = None
+        else:
+            utcoffset = utcoffset_dt.total_seconds()
+
         tzname = getattr(tz_info, '_tzname', None)
 
         parent_class_name = getmro(tz_info.__class__)[1].__name__
@@ -96,6 +115,12 @@ class TzDescriptor(object):
     @property
     def utcoffset(self):
         return self.__utcoffset
+    
+    @property
+    def utcoffset_formal(self):
+        return timedelta(seconds=self.__utcoffset) \
+                if self.__utcoffset is not None \
+                else None
     
     @property
     def tzname(self):

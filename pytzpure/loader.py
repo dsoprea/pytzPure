@@ -1,4 +1,5 @@
 from imp import find_module
+from os import environ
 
 from pytzpure.config import DEFAULT_TZ_MODULE_PREFIX
 
@@ -11,8 +12,10 @@ def _get_fq_module_name(zone_name, module_prefix=DEFAULT_TZ_MODULE_PREFIX):
     return fq_module_name
 
 def is_loadable(zone_name, module_prefix=DEFAULT_TZ_MODULE_PREFIX):
+    fq_module = _get_fq_module_name(zone_name, module_prefix)
+
     try:
-        find_module(_get_fq_module_name(zone_name, module_prefix))
+        __import__(fq_module)
     except ImportError:
         return False
     else:

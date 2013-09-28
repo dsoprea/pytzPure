@@ -10,7 +10,8 @@ from inspect import getmro
 
 from pytz import timezone, all_timezones, country_timezones, country_names
 
-from pytzpure.config import DEFAULT_ZONETAB_MODULE_NAME, DEFAULT_ISO3166_MODULE_NAME
+from pytzpure.config import DEFAULT_ZONETAB_MODULE_NAME, \
+                            DEFAULT_ISO3166_MODULE_NAME
 from pytzpure.tz_descriptor import TzDescriptor
 from pytzpure.zone_tab_data import ZoneTabData
 from pytzpure.iso3166_data import Iso3166Data
@@ -31,7 +32,7 @@ class TzTranslate(object):
         next_tz_name = self.__all_timezones.next()
 
         tz_info = timezone(next_tz_name)
-        return TzDescriptor.create_from_pytz(create_from_pytz)
+        return TzDescriptor.create_from_pytz(tz_info)
 
     next = __next__
 
@@ -39,7 +40,7 @@ def _touch(file_path):
     with file(file_path, 'w') as f:
         pass
 
-def _get_path_info_from_name(cls, zone_name):
+def _get_path_info_from_name(zone_name):
     parts = zone_name.split('/')
     dir_parts = parts[:-1]
 
@@ -53,10 +54,11 @@ def _get_path_info_from_name(cls, zone_name):
     return (zone_path, filename)
 
 def build_tree(root_path):
+    _touch(path.join(root_path, '__init__.py'))
+
     seen_paths = set()
     for tz_info in TzTranslate():
-        (zone_path, filename) = TzDescriptor.\
-                                    _get_path_info_from_name(tz_info.zone_name)
+        (zone_path, filename) = _get_path_info_from_name(tz_info.zone_name)
         full_path = path.join(root_path, zone_path)
         file_path = path.join(full_path, filename)
         
@@ -89,12 +91,17 @@ def write_country_names(root_path, module_name=DEFAULT_ISO3166_MODULE_NAME):
     i3d = Iso3166Data.create_from_original(country_names)
     _write_single_value_as_python(root_path, module_name, i3d)
 
+root_path = '/tmp/tzppdata'
+
 try:
-    mkdir('/tmp/tz')
+    mkdir(root_path)
 except OSError:
     pass
 
-build_tree('/tmp/tz')
-#
+build_tree(root_path)
+
 #print(TzDescriptor.load_from_file('America/Detroit', module_prefix='tz'))
+
+write_country_timezones(root_path)
+write_country_names(root_path)
 

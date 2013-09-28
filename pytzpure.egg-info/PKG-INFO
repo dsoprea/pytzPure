@@ -1,11 +1,10 @@
 Metadata-Version: 1.0
 Name: pytzpure
-Version: 0.1.0dev
-Summary: Produce pure-Python Olson timezone data/files.
-Home-page: https://www.github.com/dsoprea/PyTzPure
-Author: Dustin Oprea
-Author-email: myselfasunder@gmail.com
-License: GPL2
+Version: 0.2.0dev
+Summary: Pure-Python PYTZ (
+Home-page: UNKNOWN
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: UNKNOWN
 Description: UNKNOWN
-Keywords: olson timezones time-zones purepython pure-python
 Platform: UNKNOWN
