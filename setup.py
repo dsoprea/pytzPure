@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.2.2'
+version = '0.2.3'
 
 setup(name='pytzpure',
       version=version,
       description="A pure-Python version of PYTZ (timezones).",
-      long_description="""\A variation of PYTZ (standard timezone support) that allows an export of the standard zoneinfo data to Python modules, and then reads all further data from those via all of the standard PYTZ calls. This allows usage from pure-Python-only environments, such as Google AppEngine.
+      long_description="""\A variation of PYTZ (standard timezone support) that can be run from a pure-Python environment. All zoneinfo information is translated to Python modules that are imported like any other.
 """,
       classifiers=['Development Status :: 3 - Alpha',
                    'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',

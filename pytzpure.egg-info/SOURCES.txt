@@ -1,4 +1,4 @@
-setup.cfg
+README.txt
 setup.py
 pytzpure/__init__.py
 pytzpure/config.py
@@ -11,11 +11,11 @@ pytzpure/tz_descriptor.py
 pytzpure/tz_export.py
 pytzpure/tzfile.py
 pytzpure/tzinfo.py
-pytzpure/utility.py
 pytzpure/zone_tab_data.py
 pytzpure.egg-info/PKG-INFO
 pytzpure.egg-info/SOURCES.txt
 pytzpure.egg-info/dependency_links.txt
 pytzpure.egg-info/entry_points.txt
-pytzpure.egg-info/not-zip-safe
+pytzpure.egg-info/requires.txt
 pytzpure.egg-info/top_level.txt
+pytzpure.egg-info/zip-safe
