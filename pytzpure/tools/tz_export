@@ -1,0 +1,18 @@
+#!/usr/bin/env python2.7
+
+from sys import argv, exit
+
+from pytzpure.tz_export import export
+
+def main():
+    if len(argv) < 2:
+        print("Please provide a root-path.")
+        exit(1)
+
+    root_path = argv[1]
+
+    export(root_path)
+
+if __name__ == '__main__':
+    main()
+

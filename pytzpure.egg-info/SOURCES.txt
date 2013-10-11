@@ -3,7 +3,6 @@ setup.py
 pytzpure/__init__.py
 pytzpure/config.py
 pytzpure/exceptions.py
-pytzpure/get_as_python.py
 pytzpure/iso3166_data.py
 pytzpure/lazy.py
 pytzpure/loader.py
@@ -19,3 +18,6 @@ pytzpure.egg-info/entry_points.txt
 pytzpure.egg-info/requires.txt
 pytzpure.egg-info/top_level.txt
 pytzpure.egg-info/zip-safe
+pytzpure/random_utility/__init__.py
+pytzpure/random_utility/get_as_python.py
+pytzpure/tools/tz_export

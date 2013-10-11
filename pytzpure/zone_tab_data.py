@@ -1,6 +1,7 @@
+from pytzpure.random_utility.get_as_python import get_as_python
+
 from pytzpure.config import DEFAULT_TZ_MODULE_PREFIX, \
                             DEFAULT_ZONETAB_MODULE_NAME
-from pytzpure.get_as_python import get_as_python
 from pytzpure.loader import load_module
 from pytzpure.lazy import LazyDict
 

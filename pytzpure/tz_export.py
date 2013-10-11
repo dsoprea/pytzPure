@@ -95,7 +95,7 @@ def write_country_names(root_path, module_name=DEFAULT_ISO3166_MODULE_NAME):
     _write_single_value_as_python(root_path, module_name, i3d)
 
 def export(root_path):
-    print("Verifying export path exists: %s" % (root_path))
+    print("Ensuring export path exists: %s" % (root_path))
 
     try:
         mkdir(root_path)

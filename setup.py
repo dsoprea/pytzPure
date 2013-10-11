@@ -1,7 +1,9 @@
+#!/usr/bin/env python2.7
+
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.2.3'
+version = '0.2.4'
 
 setup(name='pytzpure',
       version=version,
@@ -17,7 +19,7 @@ setup(name='pytzpure',
       author_email='myselfasunder@gmail.com',
       url='https://github.com/dsoprea/PyTzPure',
       license='GPL2',
-      packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
+      packages=find_packages(),
       include_package_data=True,
       zip_safe=True,
       install_requires=[
@@ -26,5 +28,6 @@ setup(name='pytzpure',
       entry_points="""
       # -*- Entry points: -*-
       """,
+      scripts=['pytzpure/tools/tz_export']
       )
 

@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: pytzpure
-Version: 0.2.3
+Version: 0.2.4
 Summary: A pure-Python version of PYTZ (timezones).
 Home-page: https://github.com/dsoprea/PyTzPure
 Author: Dustin Oprea

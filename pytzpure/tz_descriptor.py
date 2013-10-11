@@ -2,8 +2,9 @@ from inspect import getmro
 from datetime import datetime, timedelta
 from time import mktime
 
+from pytzpure.random_utility.get_as_python import get_as_python
+
 from pytzpure.config import DEFAULT_TZ_MODULE_PREFIX
-from pytzpure.get_as_python import get_as_python
 from pytzpure.loader import load_module
 
 
